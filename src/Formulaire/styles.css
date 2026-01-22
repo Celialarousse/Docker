@@ -1,0 +1,99 @@
+body {
+    font-family: 'Verdana', sans-serif;/* Changement de la police de caractères */
+    background-color: #f9f9f9;
+    color: #333;
+    line-height: 1.6;/* Amélioration de la lisibilité */
+    margin: 0;
+    padding: 0;
+}
+
+.form-container {
+    max-width: 500px;
+    margin: 50px auto;/* Centrage du formulaire */
+    padding: 25px;
+    background-color: #fff;
+    border-radius: 8px;/* Coins arrondis */
+    box-shadow: 0 2 10px rgba(0, 0, 0, 0.1);/* Ombre subtile */
+}
+
+h1 {
+    text-align: center;
+    color: #2c3e50;
+    margin-bottom: 25px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;/* Assure que le label occupe toute la largeur */
+    margin-bottom: 8px;
+    font-weight: bold;/* Mise en gras des labels */
+    color: #2c3e50;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"]{
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+    box-sizing: border-box;/* Assure que le padding est inclus dans la largeur */
+}
+
+.submit-btn {
+    display: block;/* Assure que le bouton occupe toute la largeur */
+    width: 100%;
+    padding: 12px;
+    background-color: #3498db;
+    color: white;
+    border: none;/* Suppression de la bordure par défaut */
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;/* Changement du curseur au survol */
+    transition: background-color 0.3s;/* Animation de la couleur de fond */
+}
+
+.submit-btn:hover {
+    background-color: #2980b9;
+}
+
+.login-link {
+    color: #3498db;
+    text-decoration: none;/* Suppression du soulignement */
+    text-align: center;/* Centrage du texte */
+    margin-top: 15px;
+    font-size: 14px;
+}
+
+.login-link a:hover {
+    text-decoration: underline;/* Soulignement au survol */
+}
+
+.password-container {
+    position: relative;/* Conteneur pour le champ de mot de passe et le bouton */
+    display: flex;/* Utilisation de flexbox pour l'alignement */
+    align-items: center;
+}
+
+.password-container input {
+    flex: 1;
+    padding-right: 40px;
+}
+
+.toggle-password {
+    position: absolute;/* Positionnement absolu par rapport au conteneur */
+    right: 10px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    color: #555;
+}
+
+.toggle-password:hover {
+    color: #333;
+}
