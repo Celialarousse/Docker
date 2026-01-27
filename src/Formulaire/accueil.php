@@ -8,8 +8,9 @@
     </head>
     <body>
         <div class="welcome-container">
-            <h1>Bienvenue !</h1>
-            <p>Vous êtes maintenant connecté(e).</p>
+            <h1>Bienvenue, <?php echo htmlspecialchars($_POST['prenom'] ?? 'Utilisateur'); ?> !</h1>
+    <p>Vous êtes maintenant connecté(e).</p>
+    <a href="deconnexion.php" class="deconnexion-btn">Se déconnecter</a>
         </div>
     </body>
 </html>

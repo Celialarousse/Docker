@@ -9,7 +9,7 @@
     <body>
         <div class="form-container"> <!-- Ajout d'une div conteneur pour le formulaire -->
             <h1>Créer un compte</h1>
-            <form action ="#" method ="post"> <!-- Ajout de l'attribut method -->
+            <form action ="traitement_inscription.php" method ="post"> <!-- Ajout de l'attribut method -->
                 <div class="form-group"><!-- Ajout d'une div pour chaque groupe de champs -->
                     <label for="username">Nom :</label><!-- Ajout de l'attribut for -->
                     <input type="text" id="username" name="username" required><!-- Ajout de l'attribut id -->
@@ -35,7 +35,7 @@
                     </div>
                 </div>
                 <button type="submit" class="submit-btn">S'inscrire</button><!-- Ajout d'une classe pour le bouton -->
-                <p class="login-link">Déjà un compte ? <a href="connexion.html">Se connecter</a></p><!-- Ajout d'une classe pour le paragraphe -->
+                <p class="login-link">Déjà un compte ? <a href="connexion.php">Se connecter</a></p><!-- Ajout d'une classe pour le paragraphe -->
             </form>
         </div>
     </body>
