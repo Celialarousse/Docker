@@ -1,3 +1,41 @@
+<?php
+// Démarrer la session en premier
+session_start();
+
+// Inclure le fichier de configuration
+require 'config.php';
+
+// Traitement du formulaire
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $email = $_POST["email"];
+    $password = $_POST["password"];
+
+    try {
+        $stmt = $pdo->prepare("SELECT * FROM utilisateurs WHERE email = ?");
+        $stmt->execute([$email]);
+        $user = $stmt->fetch();
+
+        if ($user && password_verify($password, $user['mot_de_passe'])) {
+            // Stocker les informations de l'utilisateur en session
+            $_SESSION['user_email'] = $user['email'];
+            $_SESSION['user_nom'] = $user['nom'];
+            $_SESSION['user_prenom'] = $user['prenom'];
+
+            // Redirection vers la page d'accueil
+            header("Location: accueil.php");
+            exit();
+        } else {
+            // Stocker un message d'erreur en session pour l'afficher sur la page de connexion
+            $_SESSION['erreur_connexion'] = "Email ou mot de passe incorrect.";
+            header("Location: connexion.php");
+            exit();
+        }
+    } catch(PDOException $e) {
+        die("Erreur : " . $e->getMessage());
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
     <head>
@@ -9,31 +47,15 @@
     <body>
         <div class="welcome-container">
             <h1>Résultat de la connexion</h1>
-
             <?php
-            if ($_SERVER["REQUEST_METHOD"] == "POST") {
-
-                $email = htmlspecialchars($_POST["email"]);
-                $password = htmlspecialchars($_POST["password"]);
-
-                if (!empty($email) && !empty($password)) {
-
-                    echo "<p>Bonjour <strong>$email</strong> !</p>";
-                    echo "<p>Votre connexion a été validée avec succès.</p>";
-
-                    echo "<p>Vous allez être redirigé(e) vers votre espace...</p>";
-                    echo '<meta http-equiv="refresh" content="3;url=accueil.php">';
-                } else {
-
-                    echo "<p style='color: red;'><strong>Erreur :</strong> Veuillez remplir tous les champs.</p>";
-                    echo "<a href='connexion.php' class='submit-btn'>Réessayer</a>";
-                }
-            } else {
-
-                echo "<p style='color: red;'><strong>Erreur :</strong> Aucune donnée reçue.</p>";
-                echo "<a href='connexion.php' class='submit-btn'>Retour à la connexion</a>";
+            // Si tu veux afficher un message ici, utilise une variable ou une session
+            if (isset($_SESSION['erreur_connexion'])) {
+                echo "<p style='color: red;'>" . $_SESSION['erreur_connexion'] . "</p>";
+                unset($_SESSION['erreur_connexion']);
+                echo "<a href='connexion.php' class='submit-btn'>Réessayer</a>";
             }
             ?>
         </div>
     </body>
 </html>
+
