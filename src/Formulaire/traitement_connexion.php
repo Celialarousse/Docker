@@ -1,37 +1,35 @@
 <?php
-// Démarrer la session en premier
 session_start();
 
-// Inclure le fichier de configuration
-require 'config.php';
+require 'config.php'; // Inclut le fichier de configuration de la base de données
 
-// Traitement du formulaire
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") { // Vérifie si le formulaire a été soumis avec la méthode POST
+    // Récupère l'email et le mot de passe soumis par l'utilisateur
     $email = $_POST["email"];
     $password = $_POST["password"];
 
     try {
-        $stmt = $pdo->prepare("SELECT id, nom, prenom, email, mot_de_passe FROM utilisateurs WHERE email = ?");
+        $stmt = $pdo->prepare("SELECT id, nom, prenom, email, mot_de_passe FROM utilisateurs WHERE email = ?"); // Prépare une requête SQL pour sélectionner l'utilisateur avec l'email fourni
         $stmt->execute([$email]);
-        $user = $stmt->fetch();
+        $user = $stmt->fetch(); // Récupère les résultats de la requête sous forme de tableau associatif
 
+        // Vérifie si un utilisateur a été trouvé et si le mot de passe est correct
         if ($user && password_verify($password, $user['mot_de_passe'])) {
-            // Stocker les informations de l'utilisateur en session
             $_SESSION['user_email'] = $user['email'];
             $_SESSION['user_nom'] = $user['nom'];
             $_SESSION['user_prenom'] = $user['prenom'];
 
-            // Redirection vers la page d'accueil
             header("Location: accueil.php");
             exit();
         } else {
-            // Stocker un message d'erreur en session pour l'afficher sur la page de connexion
-            $_SESSION['erreur_connexion'] = "Email ou mot de passe incorrect.";
+            $_SESSION['erreur_connexion'] = "Email ou mot de passe incorrect."; // Stocke un message d'erreur en session pour l'afficher sur la page de connexion
+
             header("Location: connexion.php");
             exit();
         }
     } catch(PDOException $e) {
-        die("Erreur : " . $e->getMessage());
+        die("Erreur : " . $e->getMessage()); // En cas d'erreur de base de données, affiche un message d'erreur et arrête le script
     }
 }
 ?>
@@ -48,7 +46,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <div class="welcome-container">
             <h1>Résultat de la connexion</h1>
             <?php
-            // Si tu veux afficher un message ici, utilise une variable ou une session
+            // Affiche un message d'erreur si la connexion a échoué
             if (isset($_SESSION['erreur_connexion'])) {
                 echo "<p style='color: red;'>" . $_SESSION['erreur_connexion'] . "</p>";
                 unset($_SESSION['erreur_connexion']);
@@ -58,4 +56,3 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
     </body>
 </html>
-

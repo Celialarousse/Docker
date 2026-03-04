@@ -1,9 +1,9 @@
 <?php
-session_start(); // Démarre une session
-session_unset(); // Supprime toutes les variables de session
-session_destroy(); // Détruit la session
+session_start();
+session_unset(); // Cela efface toutes les données stockées dans la session
+session_destroy(); // Cela supprime la session côté serveur
 
-header("Location: connexion.php"); // Redirige vers la page de connexion
+header("Location: connexion.php");
 exit();
 ?>
 
@@ -20,8 +20,7 @@ exit();
             <h1>Vous êtes déconnecté(e)</h1>
             <p>Merci d'avoir utilisé notre service.</p>
             <p>Vous allez être redirigé(e) vers la page de connexion...</p>
-            <!-- Redirection automatique après 3 secondes -->
-            <meta http-equiv="refresh" content="3;url=connexion.php">
+            <meta http-equiv="refresh" content="3;url=connexion.php"> <!-- Cette balise meta rafraîchit la page après 3 secondes et redirige vers la page de connexion -->
         </div>
     </body>
 </html>
